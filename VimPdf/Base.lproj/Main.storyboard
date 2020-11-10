@@ -714,7 +714,7 @@
                             </customView>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="u0f-Ci-rXy">
                                 <rect key="frame" x="-2" y="0.0" width="484" height="16"/>
-                                <textFieldCell key="cell" lineBreakMode="clipping" title=":to start, press `f`" id="YVS-Sb-0ab">
+                                <textFieldCell key="cell" lineBreakMode="clipping" title=":To start, press `?`" id="YVS-Sb-0ab">
                                     <font key="font" usesAppearanceFont="YES"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>

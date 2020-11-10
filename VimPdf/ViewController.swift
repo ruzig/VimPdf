@@ -13,47 +13,25 @@ class ViewController: NSViewController {
     @IBOutlet weak var commandView: NSTextFieldCell!
     @IBOutlet weak var pdfView: PDFView!
     
+    var panel: FileOpener!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        self.panel = FileOpener()
     }
     
     override func keyDown(with event: NSEvent) {
         switch event.characters {
-        case "f":
+        case "o":
             print("open file")
-            openFile()
+            self.panel.runModal() { (fileUrl) -> () in
+                self.pdfView.document = PDFDocument(url: fileUrl)
+            }
+            commandView.stringValue = ":`Press ?` is your friend!"
         default:
             break
-        }
-        commandView.stringValue = ":\(event.characters ?? "To start, press f")"
-    }
-    
-    func openFile() {
-        let dialog = NSOpenPanel();
-        
-        dialog.title                   = "Choose a file| Our Code World";
-        dialog.showsResizeIndicator    = true;
-        dialog.showsHiddenFiles        = false;
-        dialog.allowsMultipleSelection = false;
-        dialog.canChooseDirectories = false;
-        dialog.allowedFileTypes = ["pdf"]
-        
-        if (dialog.runModal() ==  NSApplication.ModalResponse.OK) {
-            let result = dialog.url // Pathname of the file
-            
-            if (result != nil) {
-                let path: String = result!.path
-                
-                self.pdfView.document = PDFDocument(url: result!)
-                
-                // path contains the file path e.g
-                // /Users/ourcodeworld/Desktop/file.txt
-            }
-        } else {
-            // User clicked on "Cancel"
-            return
         }
     }
     
