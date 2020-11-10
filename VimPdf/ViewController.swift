@@ -17,15 +17,6 @@ class ViewController: NSViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        
-        NSEvent.addLocalMonitorForEvents(matching: .flagsChanged) {
-            self.flagsChanged(with: $0)
-            return $0
-        }
-        NSEvent.addLocalMonitorForEvents(matching: .keyDown) {
-            self.keyDown(with: $0)
-            return $0
-        }
     }
     
     override func keyDown(with event: NSEvent) {
@@ -36,8 +27,7 @@ class ViewController: NSViewController {
         default:
             break
         }
-        commandView.stringValue = ":" + (event.characters
-                                                ?? "")
+        commandView.stringValue = ":\(event.characters ?? "To start, press f")"
     }
     
     func openFile() {
@@ -55,7 +45,6 @@ class ViewController: NSViewController {
             if (result != nil) {
                 let path: String = result!.path
                 
-                print(path)
                 self.pdfView.document = PDFDocument(url: result!)
                 
                 // path contains the file path e.g
