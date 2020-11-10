@@ -38,6 +38,7 @@ class ViewController: NSViewController {
         dialog.showsHiddenFiles        = false;
         dialog.allowsMultipleSelection = false;
         dialog.canChooseDirectories = false;
+        dialog.allowedFileTypes = ["pdf"]
         
         if (dialog.runModal() ==  NSApplication.ModalResponse.OK) {
             let result = dialog.url // Pathname of the file

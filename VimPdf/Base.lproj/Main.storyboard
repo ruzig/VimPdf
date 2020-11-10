@@ -708,15 +708,12 @@
                 <viewController id="XfG-lQ-9wD" customClass="ViewController" customModule="VimPdf" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" translatesAutoresizingMaskIntoConstraints="NO" id="m2S-Jp-Qdl">
                         <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
-                        <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UgF-3d-bp4" customClass="PDFView">
+                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="UgF-3d-bp4" customClass="PDFView">
                                 <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             </customView>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="u0f-Ci-rXy">
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="u0f-Ci-rXy">
                                 <rect key="frame" x="-2" y="0.0" width="484" height="16"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <textFieldCell key="cell" lineBreakMode="clipping" title=":to start, press `f`" id="YVS-Sb-0ab">
                                     <font key="font" usesAppearanceFont="YES"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -724,6 +721,15 @@
                                 </textFieldCell>
                             </textField>
                         </subviews>
+                        <constraints>
+                            <constraint firstItem="u0f-Ci-rXy" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" id="1Cq-J3-4w8"/>
+                            <constraint firstItem="u0f-Ci-rXy" firstAttribute="trailing" secondItem="UgF-3d-bp4" secondAttribute="trailing" id="2KA-Y8-j4G"/>
+                            <constraint firstItem="UgF-3d-bp4" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" id="Du3-E0-hw7"/>
+                            <constraint firstItem="u0f-Ci-rXy" firstAttribute="bottom" secondItem="UgF-3d-bp4" secondAttribute="bottom" id="EvL-wA-AQt"/>
+                            <constraint firstAttribute="trailing" secondItem="u0f-Ci-rXy" secondAttribute="trailing" id="S3h-Nv-ILl"/>
+                            <constraint firstItem="u0f-Ci-rXy" firstAttribute="leading" secondItem="UgF-3d-bp4" secondAttribute="leading" id="lqq-ou-2Eb"/>
+                            <constraint firstAttribute="bottom" secondItem="u0f-Ci-rXy" secondAttribute="bottom" id="rm6-5H-CIN"/>
+                        </constraints>
                     </view>
                     <connections>
                         <outlet property="commandView" destination="YVS-Sb-0ab" id="nHa-uO-uvF"/>
