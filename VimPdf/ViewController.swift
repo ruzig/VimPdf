@@ -25,7 +25,6 @@ class ViewController: NSViewController {
     override func keyDown(with event: NSEvent) {
         switch event.characters {
         case "o":
-            print("open file")
             self.panel.runModal() { (fileUrl) -> () in
                 self.pdfView.document = PDFDocument(url: fileUrl)
             }
