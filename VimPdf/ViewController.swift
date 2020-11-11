@@ -26,10 +26,10 @@ class ViewController: NSViewController {
     
     override func keyDown(with event: NSEvent) {
         self.driver.add(item: event)
-        self.driver.process() { (commandType, cmd) -> () in
-            commandView.stringValue = ":\(cmd)"
+        self.driver.process() { (cmd) -> () in
+            commandView.stringValue = ":\(cmd.message)"
 
-            switch commandType {
+            switch cmd.type {
             case .openFile:
                 self.panel.runModal() { (fileUrl) -> () in
                     self.pdfView.document = PDFDocument(url: fileUrl)
@@ -40,6 +40,11 @@ class ViewController: NSViewController {
                 self.pdfView.goToLastPage(nil)
             case .standstill:
                 break
+            case .goto:
+                let page = self.pdfView.document?.page(at: cmd.metadata!["pageNum"] as! Int)
+                if (page != nil) {
+                    self.pdfView.go(to: page!)
+                }
             }
         }
     }
