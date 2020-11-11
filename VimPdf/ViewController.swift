@@ -27,7 +27,7 @@ class ViewController: NSViewController {
     }
     
     func saveMark(character: String) {
-        self.marks[character] = self.pdfView.currentPage?.pageRef?.pageNumber
+        self.marks[character] = (self.pdfView.currentPage?.pageRef!.pageNumber)! - 1
     }
     
     func loadMark(character: String) {
@@ -63,6 +63,8 @@ class ViewController: NSViewController {
                 }
             case .mark:
                 saveMark(character: cmd.metadata!["character"] as! String)
+            case .loadMark:
+                loadMark(character: cmd.metadata!["character"] as! String)
             }
         }
     }
