@@ -8,7 +8,9 @@
 import Foundation
 
 enum CommandType {
-    case openFile, standstill, firstPage, lastPage, goto
+    case openFile, standstill,
+         firstPage, lastPage, goto,
+         mark
 }
 
 struct Command {

@@ -15,6 +15,7 @@ class ViewController: NSViewController {
     
     var panel: FileOpener!
     var driver: CQueue!
+    var marks: [String: Int]!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,6 +23,21 @@ class ViewController: NSViewController {
         // Do any additional setup after loading the view.
         self.panel = FileOpener()
         self.driver = CQueue()
+        self.marks = ["": 0]
+    }
+    
+    func saveMark(character: String) {
+        self.marks[character] = self.pdfView.currentPage?.pageRef?.pageNumber
+    }
+    
+    func loadMark(character: String) {
+        let pageNumber = self.marks[character]
+        if pageNumber != nil {
+            let page = self.pdfView.document?.page(at: pageNumber!)
+            if (page != nil) {
+                self.pdfView.go(to: page!)
+            }
+        }
     }
     
     override func keyDown(with event: NSEvent) {
@@ -45,6 +61,8 @@ class ViewController: NSViewController {
                 if (page != nil) {
                     self.pdfView.go(to: page!)
                 }
+            case .mark:
+                saveMark(character: cmd.metadata!["character"] as! String)
             }
         }
     }

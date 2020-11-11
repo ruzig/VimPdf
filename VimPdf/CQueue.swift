@@ -72,10 +72,20 @@ class CQueue {
         }
     }
     
+    func processMark(callback: (Command) -> ()) {
+        if self.queue.count == 2 && self.queue.first?.characters == "m" {
+            let character = self.queue.last?.characters
+            self.queue.removeAll()
+            callback(Command(message: toMessage(), type: .mark, metadata: ["character": character!]))
+            
+        }
+    }
+    
     func process(callback: (Command) -> ()) {
         if self.queue.count > 0 {
             processEscape()
             processEnter(callback: callback)
+            processMark(callback: callback)
             processTextCommand(callback: callback)
         }
     }
