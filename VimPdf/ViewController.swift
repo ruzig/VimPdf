@@ -26,13 +26,15 @@ class ViewController: NSViewController {
     
     override func keyDown(with event: NSEvent) {
         self.driver.add(item: event.characters!)
-        self.driver.process() { (commandType) -> () in
+        self.driver.process() { (commandType, cmd) -> () in
             switch commandType {
             case .openFile:
                 self.panel.runModal() { (fileUrl) -> () in
                     self.pdfView.document = PDFDocument(url: fileUrl)
                 }
                 commandView.stringValue = ":`Press ?` is your friend!"
+            case .standstill:
+                commandView.stringValue = ":\(cmd)"
             }
         }
     }

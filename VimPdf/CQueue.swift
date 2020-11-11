@@ -10,7 +10,7 @@ import Foundation
 class CQueue {
     var queue: [String]
     enum Command {
-        case openFile
+        case openFile, standstill
     }
     
     init() {
@@ -21,12 +21,17 @@ class CQueue {
         self.queue.append(item)
     }
     
-    func process(callback: (Command) -> ()) {
-        switch self.queue.joined() {
+    func toCommand() -> String {
+        return self.queue.joined()
+    }
+    
+    func process(callback: (Command, String) -> ()) {
+        let cmd = toCommand()
+        switch cmd {
         case "o":
-            callback(.openFile)
+            callback(.openFile, cmd)
         default:
-            break
+            callback(.standstill, cmd)
         }
     }
 }
