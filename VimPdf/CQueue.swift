@@ -11,7 +11,7 @@ import Cocoa
 class CQueue {
     var queue: [NSEvent]
     enum Command {
-        case openFile, standstill
+        case openFile, standstill, firstPage, lastPage
     }
     
     init() {
@@ -47,6 +47,12 @@ class CQueue {
         case "o":
             self.queue.removeAll()
             callback(.openFile, toCommand())
+        case "gg":
+            self.queue.removeAll()
+            callback(.firstPage, toCommand())
+        case "G":
+            self.queue.removeAll()
+            callback(.lastPage, toCommand())
         default:
             callback(.standstill, cmd)
         }

@@ -34,6 +34,10 @@ class ViewController: NSViewController {
                 self.panel.runModal() { (fileUrl) -> () in
                     self.pdfView.document = PDFDocument(url: fileUrl)
                 }
+            case .firstPage:
+                self.pdfView.goToFirstPage(nil)
+            case .lastPage:
+                self.pdfView.goToLastPage(nil)
             case .standstill:
                 break
             }
