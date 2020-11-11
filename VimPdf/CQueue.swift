@@ -44,8 +44,6 @@ class CQueue {
     }
     
     func toMessage() -> String {
-        
-
         if self.queue.count == 0 {
             return "`Press ?` is your friend!"
         }
@@ -54,25 +52,31 @@ class CQueue {
         }.joined();
     }
     
+    func processTextCommand(callback: (Command) -> ()) {
+        if self.queue.count > 0 {
+            let cmd = toMessage()
+            switch cmd {
+            case "o":
+                self.queue.removeAll()
+                callback(Command(message: toMessage(), type: CommandType.openFile, metadata: nil))
+            case "gg":
+                self.queue.removeAll()
+                callback(Command(message: toMessage(), type: CommandType.firstPage, metadata: nil))
+            case "G":
+                self.queue.removeAll()
+                callback(Command(message: toMessage(), type: CommandType.lastPage, metadata: nil))
+            
+            default:
+                callback(Command(message: cmd, type: CommandType.standstill, metadata: nil))
+            }
+        }
+    }
+    
     func process(callback: (Command) -> ()) {
         if self.queue.count > 0 {
             processEscape()
             processEnter(callback: callback)
-        }
-        let cmd = toMessage()
-        switch cmd {
-        case "o":
-            self.queue.removeAll()
-            callback(Command(message: toMessage(), type: CommandType.openFile, metadata: nil))
-        case "gg":
-            self.queue.removeAll()
-            callback(Command(message: toMessage(), type: CommandType.firstPage, metadata: nil))
-        case "G":
-            self.queue.removeAll()
-            callback(Command(message: toMessage(), type: CommandType.lastPage, metadata: nil))
-        
-        default:
-            callback(Command(message: cmd, type: CommandType.standstill, metadata: nil))
+            processTextCommand(callback: callback)
         }
     }
 }
