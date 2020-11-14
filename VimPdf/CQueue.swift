@@ -65,6 +65,12 @@ class CQueue {
             case "G":
                 self.queue.removeAll()
                 callback(Command(message: toMessage(), type: CommandType.lastPage, metadata: nil))
+            case "d":
+                self.queue.removeAll()
+                callback(Command(message: toMessage(), type: CommandType.down, metadata: nil))
+            case "u":
+                self.queue.removeAll()
+                callback(Command(message: toMessage(), type: CommandType.up, metadata: nil))
             
             default:
                 callback(Command(message: cmd, type: CommandType.standstill, metadata: nil))

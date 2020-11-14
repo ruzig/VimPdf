@@ -40,6 +40,18 @@ class ViewController: NSViewController {
         }
     }
     
+    func down() {
+        for _ in 0..<30 {
+            self.pdfView.scrollLineUp(nil)
+        }
+    }
+    
+    func up() {
+        for _ in 0..<30 {
+            self.pdfView.scrollLineDown(nil)
+        }
+    }
+    
     override func keyDown(with event: NSEvent) {
         self.driver.add(item: event)
         self.driver.process() { (cmd) -> () in
@@ -65,6 +77,10 @@ class ViewController: NSViewController {
                 saveMark(character: cmd.metadata!["character"] as! String)
             case .loadMark:
                 loadMark(character: cmd.metadata!["character"] as! String)
+            case .down:
+                down()
+            case .up:
+                up()
             }
         }
     }
