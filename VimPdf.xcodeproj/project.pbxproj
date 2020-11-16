@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DE96DA3C2561739200B22AB4 /* DocModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE96DA392561739200B22AB4 /* DocModel.swift */; };
 		DEDC892B255A82CA001ACDCA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEDC892A255A82CA001ACDCA /* AppDelegate.swift */; };
 		DEDC892D255A82CA001ACDCA /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEDC892C255A82CA001ACDCA /* ViewController.swift */; };
 		DEDC8930255A82CA001ACDCA /* VimPdf.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = DEDC892E255A82CA001ACDCA /* VimPdf.xcdatamodeld */; };
@@ -18,6 +19,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		DE96DA392561739200B22AB4 /* DocModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocModel.swift; sourceTree = "<group>"; };
 		DEDC8927255A82CA001ACDCA /* VimPdf.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VimPdf.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DEDC892A255A82CA001ACDCA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DEDC892C255A82CA001ACDCA /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -61,6 +63,7 @@
 		DEDC8929255A82CA001ACDCA /* VimPdf */ = {
 			isa = PBXGroup;
 			children = (
+				DE96DA392561739200B22AB4 /* DocModel.swift */,
 				DEDC892A255A82CA001ACDCA /* AppDelegate.swift */,
 				DEDC892C255A82CA001ACDCA /* ViewController.swift */,
 				DEDC8931255A82CD001ACDCA /* Assets.xcassets */,
@@ -144,6 +147,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DE96DA3C2561739200B22AB4 /* DocModel.swift in Sources */,
 				DEDC8940255AD84F001ACDCA /* FileOpener.swift in Sources */,
 				DEDC892D255A82CA001ACDCA /* ViewController.swift in Sources */,
 				DEDC892B255A82CA001ACDCA /* AppDelegate.swift in Sources */,

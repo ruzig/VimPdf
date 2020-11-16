@@ -12,6 +12,7 @@ class ViewController: NSViewController {
     
     @IBOutlet weak var commandView: NSTextFieldCell!
     @IBOutlet weak var pdfView: PDFView!
+    let context = (NSApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
     var panel: FileOpener!
     var driver: CQueue!
@@ -24,6 +25,8 @@ class ViewController: NSViewController {
         self.panel = FileOpener()
         self.driver = CQueue()
         self.marks = ["": 0]
+        loadLastRead()
+        
     }
     
     func saveMark(character: String) {
@@ -52,6 +55,28 @@ class ViewController: NSViewController {
         }
     }
     
+    func openFile() {
+        self.panel.runModal() { (fileUrl) -> () in
+            self.pdfView.document = PDFDocument(url: fileUrl)
+            DocModel(context: self.context).create(fileUrl: fileUrl)
+        }
+    }
+    
+    func loadLastRead() {
+        let doc = DocModel(context: self.context).last()
+        if doc != nil {
+            let path = doc!.fileUrl!.path
+            DispatchQueue.main.async  {
+                let pdf = PDFDocument(url: URL(fileURLWithPath: path))
+                if pdf != nil {
+                    self.pdfView.document = pdf
+                } else {
+                    print("Don't have permission to read: \(path)")
+                }
+            }
+        }
+    }
+    
     override func keyDown(with event: NSEvent) {
         self.driver.add(item: event)
         self.driver.process() { (cmd) -> () in
@@ -59,9 +84,7 @@ class ViewController: NSViewController {
 
             switch cmd.type {
             case .openFile:
-                self.panel.runModal() { (fileUrl) -> () in
-                    self.pdfView.document = PDFDocument(url: fileUrl)
-                }
+                openFile()
             case .firstPage:
                 self.pdfView.goToFirstPage(nil)
             case .lastPage:
