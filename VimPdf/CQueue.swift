@@ -72,7 +72,12 @@ class CQueue {
             case "u":
                 self.queue.removeAll()
                 callback(Command(message: toMessage(), type: CommandType.up, metadata: nil))
-            
+            case "[":
+                self.queue.removeAll()
+                callback(Command(message: toMessage(), type: CommandType.back, metadata: nil))
+            case "]":
+                self.queue.removeAll()
+                callback(Command(message: toMessage(), type: CommandType.forward, metadata: nil))
             default:
                 callback(Command(message: cmd, type: CommandType.standstill, metadata: nil))
             }

@@ -26,6 +26,7 @@ class ViewController: NSViewController {
         self.panel = FileOpener()
         self.driver = CQueue()
         self.marks = ["": 0]
+        
         loadLastRead()
     }
     
@@ -118,6 +119,10 @@ class ViewController: NSViewController {
                 down()
             case .up:
                 up()
+            case .back:
+                self.pdfView.goBack(nil)
+            case .forward:
+                self.pdfView.goForward(nil)
             }
             try! self.context.save()
         }

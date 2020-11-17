@@ -11,7 +11,9 @@ enum CommandType {
     case openFile, standstill,
          firstPage, lastPage, goto,
          mark, loadMark,
-         down, up
+         down, up,
+         back, forward
+         
 }
 
 struct Command {
