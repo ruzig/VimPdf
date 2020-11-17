@@ -57,21 +57,22 @@ class ViewController: NSViewController {
     
     func openFile() {
         self.panel.runModal() { (fileUrl) -> () in
-            self.pdfView.document = PDFDocument(url: fileUrl)
-            DocModel(context: self.context).create(fileUrl: fileUrl)
+            self.pdfView.document = PDFDocument(url:fileUrl)
+            let doc = DocModel(context: self.context).create(fileUrl: fileUrl)
+            FilePermission.saveBookmark(doc: doc)
         }
     }
     
     func loadLastRead() {
         let doc = DocModel(context: self.context).last()
+        
         if doc != nil {
-            let path = doc!.fileUrl!.path
-            DispatchQueue.main.async  {
-                let pdf = PDFDocument(url: URL(fileURLWithPath: path))
-                if pdf != nil {
-                    self.pdfView.document = pdf
-                } else {
-                    print("Don't have permission to read: \(path)")
+            FilePermission.withPermission(url: (doc!.fileUrl)!) {
+                let permittedUrl = FilePermission.loadBookmark(doc: doc!)
+                if permittedUrl != nil {
+                    DispatchQueue.main.async  {
+                        self.pdfView.document = PDFDocument(url: permittedUrl!)
+                    }
                 }
             }
         }

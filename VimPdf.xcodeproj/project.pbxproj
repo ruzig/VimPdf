@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DE16C08F256289390005C1CA /* FilePermission.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE16C08E256289390005C1CA /* FilePermission.swift */; };
 		DE96DA3C2561739200B22AB4 /* DocModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE96DA392561739200B22AB4 /* DocModel.swift */; };
 		DEDC892B255A82CA001ACDCA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEDC892A255A82CA001ACDCA /* AppDelegate.swift */; };
 		DEDC892D255A82CA001ACDCA /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEDC892C255A82CA001ACDCA /* ViewController.swift */; };
@@ -19,6 +20,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		DE16C08E256289390005C1CA /* FilePermission.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilePermission.swift; sourceTree = "<group>"; };
 		DE96DA392561739200B22AB4 /* DocModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocModel.swift; sourceTree = "<group>"; };
 		DEDC8927255A82CA001ACDCA /* VimPdf.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VimPdf.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DEDC892A255A82CA001ACDCA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -74,6 +76,7 @@
 				DEDC893F255AD84F001ACDCA /* FileOpener.swift */,
 				DEDC8942255AE26A001ACDCA /* CQueue.swift */,
 				DEDC8945255C25B5001ACDCA /* Command.swift */,
+				DE16C08E256289390005C1CA /* FilePermission.swift */,
 			);
 			path = VimPdf;
 			sourceTree = "<group>";
@@ -147,6 +150,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DE16C08F256289390005C1CA /* FilePermission.swift in Sources */,
 				DE96DA3C2561739200B22AB4 /* DocModel.swift in Sources */,
 				DEDC8940255AD84F001ACDCA /* FileOpener.swift in Sources */,
 				DEDC892D255A82CA001ACDCA /* ViewController.swift in Sources */,
