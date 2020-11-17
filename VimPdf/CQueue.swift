@@ -25,9 +25,10 @@ class CQueue {
         self.queue.append(item)
     }
     
-    func processEscape() {
+    func processEscape(callback: (Command) -> ()) {
         if self.queue.last?.keyCode == Keycode.escape {
             self.queue.removeAll()
+            callback(Command(message: toMessage(), type: .standstill, metadata: nil))
         }
     }
     
@@ -98,7 +99,7 @@ class CQueue {
     
     func process(callback: (Command) -> ()) {
         if self.queue.count > 0 {
-            processEscape()
+            processEscape(callback: callback)
             processEnter(callback: callback)
             processMark(callback: callback)
             processLoadMark(callback: callback)
