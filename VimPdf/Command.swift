@@ -12,7 +12,8 @@ enum CommandType {
          firstPage, lastPage, goto,
          mark, loadMark,
          down, up,
-         back, forward
+         back, forward,
+         help
          
 }
 

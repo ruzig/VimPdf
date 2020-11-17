@@ -95,7 +95,7 @@ class ViewController: NSViewController {
     override func keyDown(with event: NSEvent) {
         self.driver.add(item: event)
         self.driver.process() { (cmd) -> () in
-            commandView.stringValue = ":\(cmd.message)"
+            commandView.stringValue = cmd.message
 
             switch cmd.type {
             case .openFile:
@@ -123,6 +123,8 @@ class ViewController: NSViewController {
                 self.pdfView.goBack(nil)
             case .forward:
                 self.pdfView.goForward(nil)
+            case .help:
+                break
             }
             try! self.context.save()
         }

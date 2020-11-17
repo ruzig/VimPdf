@@ -50,7 +50,7 @@ class CQueue {
         }
         return self.queue.map { (e) -> String in
             e.characters!
-        }.joined();
+        }.joined()
     }
     
     func processTextCommand(callback: (Command) -> ()) {
@@ -59,25 +59,39 @@ class CQueue {
             switch cmd {
             case "o":
                 self.queue.removeAll()
-                callback(Command(message: toMessage(), type: CommandType.openFile, metadata: nil))
+                callback(Command(message: ":" + toMessage(), type: CommandType.openFile, metadata: nil))
             case "gg":
                 self.queue.removeAll()
-                callback(Command(message: toMessage(), type: CommandType.firstPage, metadata: nil))
+                callback(Command(message: ":" + toMessage(), type: CommandType.firstPage, metadata: nil))
             case "G":
                 self.queue.removeAll()
-                callback(Command(message: toMessage(), type: CommandType.lastPage, metadata: nil))
+                callback(Command(message: ":" + toMessage(), type: CommandType.lastPage, metadata: nil))
             case "d":
                 self.queue.removeAll()
-                callback(Command(message: toMessage(), type: CommandType.down, metadata: nil))
+                callback(Command(message: ":" + toMessage(), type: CommandType.down, metadata: nil))
             case "u":
                 self.queue.removeAll()
-                callback(Command(message: toMessage(), type: CommandType.up, metadata: nil))
+                callback(Command(message: ":" + toMessage(), type: CommandType.up, metadata: nil))
             case "[":
                 self.queue.removeAll()
-                callback(Command(message: toMessage(), type: CommandType.back, metadata: nil))
+                callback(Command(message: ":" + toMessage(), type: CommandType.back, metadata: nil))
             case "]":
                 self.queue.removeAll()
-                callback(Command(message: toMessage(), type: CommandType.forward, metadata: nil))
+                callback(Command(message: ":" + toMessage(), type: CommandType.forward, metadata: nil))
+            case "?":
+                self.queue.removeAll()
+                let guide = """
+                    o: Open File
+                    d: Quarter page down
+                    u: Quarter page up
+                    gg: Go to First Page
+                    G: Go to Last Page
+                    [: Go nack in history
+                    ]: Go forward in history
+                    m: Create a new mark, eg: ma
+                    ': Go to a mark, eg: 'a
+                """
+                callback(Command(message: guide, type: CommandType.help, metadata: nil))
             default:
                 callback(Command(message: cmd, type: CommandType.standstill, metadata: nil))
             }
