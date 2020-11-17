@@ -17,6 +17,7 @@ class ViewController: NSViewController {
     var panel: FileOpener!
     var driver: CQueue!
     var marks: [String: Int]!
+    var currentDoc: Doc!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,7 +27,6 @@ class ViewController: NSViewController {
         self.driver = CQueue()
         self.marks = ["": 0]
         loadLastRead()
-        
     }
     
     func saveMark(character: String) {
@@ -64,18 +64,31 @@ class ViewController: NSViewController {
     }
     
     func loadLastRead() {
-        let doc = DocModel(context: self.context).last()
+        self.currentDoc = DocModel(context: self.context).last()
         
-        if doc != nil {
-            FilePermission.withPermission(url: (doc!.fileUrl)!) {
-                let permittedUrl = FilePermission.loadBookmark(doc: doc!)
+        if self.currentDoc != nil {
+            FilePermission.withPermission(url: (self.currentDoc!.fileUrl)!) {
+                let permittedUrl = FilePermission.loadBookmark(doc: self.currentDoc)
                 if permittedUrl != nil {
                     DispatchQueue.main.async  {
                         self.pdfView.document = PDFDocument(url: permittedUrl!)
+                        let lastReadPage = self.currentDoc!.lastPage
+                        if let page = self.pdfView.document?.page(at: Int(lastReadPage)) {
+                            self.pdfView.go(to: page)
+                            NotificationCenter.default.addObserver(self, selector: #selector(self.saveLastReadPage),name: .PDFViewPageChanged, object: nil)
+                        }
                     }
                 }
             }
         }
+        
+    }
+    
+    @objc private func saveLastReadPage(notification: Notification) {
+        let pdfView = notification.object as! PDFView
+        let page = pdfView.currentDestination?.page?.pageRef?.pageNumber
+        self.currentDoc.lastPage = Int64(page!)
+        try! self.context.save()
     }
     
     override func keyDown(with event: NSEvent) {
@@ -106,6 +119,7 @@ class ViewController: NSViewController {
             case .up:
                 up()
             }
+            try! self.context.save()
         }
     }
     
