@@ -58,31 +58,30 @@ class ViewController: NSViewController {
     
     func openFile() {
         self.panel.runModal() { (fileUrl) -> () in
-            self.pdfView.document = PDFDocument(url:fileUrl)
             let doc = DocModel(context: self.context).create(fileUrl: fileUrl)
             FilePermission.saveBookmark(doc: doc)
+            self.pdfView.document = PDFDocument(url:fileUrl)
         }
     }
     
     func loadLastRead() {
         self.currentDoc = DocModel(context: self.context).last()
+        let url = FilePermission.loadBookmark(doc: self.currentDoc)
         
-        if self.currentDoc != nil {
-            FilePermission.withPermission(url: (self.currentDoc!.fileUrl)!) {
-                let permittedUrl = FilePermission.loadBookmark(doc: self.currentDoc)
-                if permittedUrl != nil {
-                    DispatchQueue.main.async  {
-                        self.pdfView.document = PDFDocument(url: permittedUrl!)
-                        let lastReadPage = self.currentDoc!.lastPage
-                        if let page = self.pdfView.document?.page(at: Int(lastReadPage)) {
-                            self.pdfView.go(to: page)
-                            NotificationCenter.default.addObserver(self, selector: #selector(self.saveLastReadPage),name: .PDFViewPageChanged, object: nil)
-                        }
-                    }
+        if url != nil {
+            _ = url!.startAccessingSecurityScopedResource()
+            self.pdfView.document = PDFDocument(url: url!)
+
+            DispatchQueue.main.async  {
+                let lastReadPage = self.currentDoc!.lastPage
+                if let page = self.pdfView.document?.page(at: Int(lastReadPage)) {
+                    self.pdfView.go(to: page)
+                    NotificationCenter.default.addObserver(self, selector: #selector(self.saveLastReadPage),name: .PDFViewPageChanged, object: nil)
                 }
             }
+            
+            url!.stopAccessingSecurityScopedResource()
         }
-        
     }
     
     @objc private func saveLastReadPage(notification: Notification) {

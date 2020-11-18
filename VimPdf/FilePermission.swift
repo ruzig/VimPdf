@@ -13,7 +13,7 @@ class FilePermission {
         guard let url = doc.fileUrl else { return  }
         do {
             let bookmarkData = try url.bookmarkData(
-                options: .suitableForBookmarkFile,
+                options: .minimalBookmark,
                 includingResourceValuesForKeys: nil,
                 relativeTo: nil
             )
