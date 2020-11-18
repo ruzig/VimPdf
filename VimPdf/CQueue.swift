@@ -66,16 +66,16 @@ class CQueue {
             case "G":
                 self.queue.removeAll()
                 callback(Command(message: ":" + toMessage(), type: CommandType.lastPage, metadata: nil))
-            case "d":
+            case "d", "j":
                 self.queue.removeAll()
                 callback(Command(message: ":" + toMessage(), type: CommandType.down, metadata: nil))
-            case "u":
+            case "u", "k":
                 self.queue.removeAll()
                 callback(Command(message: ":" + toMessage(), type: CommandType.up, metadata: nil))
-            case "[":
+            case "[", "b":
                 self.queue.removeAll()
                 callback(Command(message: ":" + toMessage(), type: CommandType.back, metadata: nil))
-            case "]":
+            case "]", "w":
                 self.queue.removeAll()
                 callback(Command(message: ":" + toMessage(), type: CommandType.forward, metadata: nil))
             case "?":
@@ -86,10 +86,14 @@ class CQueue {
                     u: Quarter page up
                     gg: Go to First Page
                     G: Go to Last Page
-                    [: Go nack in history
+                    [: Go back in history
                     ]: Go forward in history
-                    m: Create a new mark, eg: ma
-                    ': Go to a mark, eg: 'a
+                    m: Create a new mark, e.g: ma
+                    ': Go to a mark, e.g: 'a
+                    ⌘ +: Zoom in
+                    ⌘ -: Zoom in
+                    
+                    Happy reading!
                 """
                 callback(Command(message: guide, type: CommandType.help, metadata: nil))
             default:

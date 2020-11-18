@@ -28,10 +28,19 @@ class ViewController: NSViewController {
         self.marks = ["": 0]
         
         loadLastRead()
+        loadMarks()
+        self.pdfView.autoScales = true
+    }
+    func loadMarks() {
+        if (self.currentDoc.marks != nil) {
+            self.marks = try! JSONDecoder().decode([String: Int].self, from: self.currentDoc.marks!)
+        }
     }
     
     func saveMark(character: String) {
         self.marks[character] = (self.pdfView.currentPage?.pageRef!.pageNumber)! - 1
+        self.currentDoc.marks = try! JSONEncoder().encode(self.marks)
+        try! self.context.save()
     }
     
     func loadMark(character: String) {
@@ -71,6 +80,7 @@ class ViewController: NSViewController {
         if url != nil {
             _ = url!.startAccessingSecurityScopedResource()
             self.pdfView.document = PDFDocument(url: url!)
+            
 
             DispatchQueue.main.async  {
                 let lastReadPage = self.currentDoc!.lastPage
