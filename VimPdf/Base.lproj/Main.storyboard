@@ -61,13 +61,13 @@
             <objects>
                 <viewController id="XfG-lQ-9wD" customClass="ViewController" customModule="VimPdf" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" translatesAutoresizingMaskIntoConstraints="NO" id="m2S-Jp-Qdl">
-                        <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
+                        <rect key="frame" x="0.0" y="0.0" width="860" height="880"/>
                         <subviews>
                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="UgF-3d-bp4" customClass="PDFView">
-                                <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
+                                <rect key="frame" x="0.0" y="0.0" width="860" height="880"/>
                             </customView>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="u0f-Ci-rXy">
-                                <rect key="frame" x="-2" y="0.0" width="484" height="16"/>
+                                <rect key="frame" x="-2" y="0.0" width="864" height="16"/>
                                 <textFieldCell key="cell" lineBreakMode="clipping" alignment="left" title=":`Press ?` is your friend!" id="YVS-Sb-0ab">
                                     <font key="font" usesAppearanceFont="YES"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
