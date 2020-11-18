@@ -97,7 +97,7 @@ class CQueue {
                 """
                 callback(Command(message: guide, type: CommandType.help, metadata: nil))
             default:
-                callback(Command(message: cmd, type: CommandType.standstill, metadata: nil))
+                callback(Command(message: ":" + cmd, type: CommandType.standstill, metadata: nil))
             }
         }
     }
