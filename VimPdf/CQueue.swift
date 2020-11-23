@@ -88,10 +88,11 @@ class CQueue {
                     G: Go to Last Page
                     [: Go back in history
                     ]: Go forward in history
-                    m: Create a new mark, e.g: ma
+                    m: Mark the current page to a character, e.g: ma
                     ': Go to a mark, e.g: 'a
                     ⌘ +: Zoom in
                     ⌘ -: Zoom in
+                    esc: Reset command
                     
                     Happy reading!
                 """
