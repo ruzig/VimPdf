@@ -1,0 +1,28 @@
+VimPdf is a pdf reader with powerful keyboard navigation. Features:
+
+- Navigation keys:
+  ?: Show list command
+  esc: Reset command
+  o: Open File
+  d: Quarter page down(or j)
+  u: Quarter page up(or k)
+  Space: Page down
+  Shift + Space: Page up
+  gg: Go to First Page
+  G: Go to Last Page
+  [: Go back in history
+  ]: Go forward in history
+  m: Mark the current page to a character, e.g: ma
+  ': Go to a mark, e.g: 'a
+  ⌘ +: Zoom in
+  ⌘ -: Zoom in
+
+- VimPdf is pure and fast, uses native Apple library, doesn't inlude any third-party libraries, no tracking code.
+- VimPdf is supported Vim binding keyboard, famous for programmers.
+
+- Protips:
+  + Mark `mt` for table of contents. Everytime you want to see table of contents, just type 't. Then `[` to go back at current reading page.
+  + Mark m1, m2, m3 for chapter 1, 2, 3
+  + Anytime you forget the commands, just press ?, it will show the guide at bottom-left
+
+- Anyfeedback: mail to ltanphat@gmail.com
