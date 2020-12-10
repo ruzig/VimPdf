@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		DE16C08F256289390005C1CA /* FilePermission.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE16C08E256289390005C1CA /* FilePermission.swift */; };
+		DE6C29D925811AC400B24B3F /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE6C29D825811AC400B24B3F /* HomeView.swift */; };
 		DE96DA3C2561739200B22AB4 /* DocModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE96DA392561739200B22AB4 /* DocModel.swift */; };
 		DEDC892B255A82CA001ACDCA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEDC892A255A82CA001ACDCA /* AppDelegate.swift */; };
 		DEDC892D255A82CA001ACDCA /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEDC892C255A82CA001ACDCA /* ViewController.swift */; };
@@ -21,6 +22,7 @@
 
 /* Begin PBXFileReference section */
 		DE16C08E256289390005C1CA /* FilePermission.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilePermission.swift; sourceTree = "<group>"; };
+		DE6C29D825811AC400B24B3F /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		DE96DA392561739200B22AB4 /* DocModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocModel.swift; sourceTree = "<group>"; };
 		DEDC8927255A82CA001ACDCA /* VimPdf.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VimPdf.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DEDC892A255A82CA001ACDCA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -68,6 +70,7 @@
 				DE96DA392561739200B22AB4 /* DocModel.swift */,
 				DEDC892A255A82CA001ACDCA /* AppDelegate.swift */,
 				DEDC892C255A82CA001ACDCA /* ViewController.swift */,
+				DE6C29D825811AC400B24B3F /* HomeView.swift */,
 				DEDC8931255A82CD001ACDCA /* Assets.xcassets */,
 				DEDC8933255A82CD001ACDCA /* Main.storyboard */,
 				DEDC8936255A82CD001ACDCA /* Info.plist */,
@@ -150,6 +153,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DE6C29D925811AC400B24B3F /* HomeView.swift in Sources */,
 				DE16C08F256289390005C1CA /* FilePermission.swift in Sources */,
 				DE96DA3C2561739200B22AB4 /* DocModel.swift in Sources */,
 				DEDC8940255AD84F001ACDCA /* FileOpener.swift in Sources */,
@@ -299,6 +303,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = H9N2WPK6UW;
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = VimPdf/Info.plist;
@@ -322,6 +327,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = H9N2WPK6UW;
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = VimPdf/Info.plist;
