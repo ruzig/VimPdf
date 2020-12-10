@@ -66,6 +66,9 @@ class CQueue {
             case "G":
                 self.queue.removeAll()
                 callback(Command(message: ":" + toMessage(), type: CommandType.lastPage, metadata: nil))
+            case "t":
+                self.queue.removeAll()
+                callback(Command(message: ":" + toMessage(), type: CommandType.toggle, metadata: nil))
             case "d", "j":
                 self.queue.removeAll()
                 callback(Command(message: ":" + toMessage(), type: CommandType.down, metadata: nil))
@@ -90,6 +93,7 @@ class CQueue {
                     ]: Go forward in history
                     m: Mark the current page to a character, e.g: ma
                     ': Go to a mark, e.g: 'a
+                    t: Toggle status bar
                     ⌘ +: Zoom in
                     ⌘ -: Zoom in
                     esc: Reset command

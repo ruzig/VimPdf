@@ -13,7 +13,7 @@ enum CommandType {
          mark, loadMark,
          down, up,
          back, forward,
-         help
+         help, toggle
          
 }
 
