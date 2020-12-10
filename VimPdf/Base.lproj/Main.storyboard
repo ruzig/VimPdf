@@ -63,7 +63,7 @@
                     <view key="view" translatesAutoresizingMaskIntoConstraints="NO" id="m2S-Jp-Qdl">
                         <rect key="frame" x="0.0" y="0.0" width="860" height="880"/>
                         <subviews>
-                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="UgF-3d-bp4" customClass="PDFView">
+                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="UgF-3d-bp4" customClass="HomeView" customModule="VimPdf" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="860" height="880"/>
                             </customView>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="u0f-Ci-rXy">
