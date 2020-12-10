@@ -46,7 +46,7 @@ class CQueue {
     
     func toMessage() -> String {
         if self.queue.count == 0 {
-            return "`Press ?` is your friend!"
+            return "Press ? to show help."
         }
         return self.queue.map { (e) -> String in
             e.characters!

@@ -26,7 +26,7 @@ class ViewController: NSViewController {
         self.panel = FileOpener()
         self.driver = CQueue()
         self.marks = ["": 0]
-        
+
         self.currentDoc = DocModel(context: self.context).last()
         self.pdfView.loadLastRead(currentDoc: self.currentDoc)
         loadMarks()
