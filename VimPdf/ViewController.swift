@@ -91,6 +91,7 @@ class ViewController: NSViewController {
                 self.pdfView.goToLastPage(nil)
             case .toggle:
                 self.commandView.controlView?.isHidden = !self.commandView.controlView!.isHidden
+                self.view.window?.titlebarAppearsTransparent = !(self.view.window?.titlebarAppearsTransparent ?? false)
             case .standstill:
                 break
             case .goto:
