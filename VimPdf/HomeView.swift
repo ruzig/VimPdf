@@ -10,8 +10,12 @@ import PDFKit
 
 class HomeView: PDFView {
     
+    var currentDocument: PDFDocument?
+    
     required init?(coder: NSCoder) {
         super.init(coder: coder)
+        self.autoScales = true
+        
         registerForDraggedTypes([NSPasteboard.PasteboardType.pdf])
     }
     
@@ -24,5 +28,28 @@ class HomeView: PDFView {
         if let urls = pasteBoard.readObjects(forClasses: [NSURL.self]) as? [URL]{
             self.document = PDFDocument(url: urls.last!)
         }
+    }
+    
+    func loadLastRead(currentDoc: Doc?) {
+        if (currentDoc != nil) {
+            let url = FilePermission.loadBookmark(doc: currentDoc!)
+            
+            if url != nil {
+                _ = url!.startAccessingSecurityScopedResource()
+                
+                let lastReadPage = currentDoc!.lastPage
+                self.currentDocument = PDFDocument(url: url!)
+                self.document = self.currentDocument
+                if let page = self.document?.page(at: Int(lastReadPage)) {
+                    self.go(to: page)
+                }
+                
+                url!.stopAccessingSecurityScopedResource()
+            }
+        }
+    }
+    
+    func currentPageNumber() -> Int64 {
+        return Int64(self.currentDestination?.page?.pageRef?.pageNumber ?? 0)
     }
 }

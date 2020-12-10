@@ -11,7 +11,7 @@ import PDFKit
 class ViewController: NSViewController {
     
     @IBOutlet weak var commandView: NSTextFieldCell!
-    @IBOutlet weak var pdfView: PDFView!
+    @IBOutlet weak var pdfView: HomeView!
     let context = (NSApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
     var panel: FileOpener!
@@ -30,9 +30,14 @@ class ViewController: NSViewController {
         self.currentDoc = DocModel(context: self.context).last()
         loadLastRead()
         loadMarks()
-        self.pdfView.autoScales = true
         NotificationCenter.default.addObserver(self, selector: #selector(self.saveLastReadPage),name: .PDFViewPageChanged, object: nil)
+        let bundleURL = Bundle.main.bundleURL
+        let parentVolumeURL = try! bundleURL.resourceValues(forKeys: [.volumeURLKey]).volume
+        print(parentVolumeURL)
+        print(bundleURL)
+                
     }
+    
     func loadMarks() {
         if (self.currentDoc != nil && self.currentDoc.marks != nil) {
             self.marks = try! JSONDecoder().decode([String: Int].self, from: self.currentDoc.marks!)
@@ -79,30 +84,12 @@ class ViewController: NSViewController {
     }
     
     func loadLastRead() {
-        if (self.currentDoc != nil) {
-            let url = FilePermission.loadBookmark(doc: self.currentDoc)
-            
-            if url != nil {
-                _ = url!.startAccessingSecurityScopedResource()
-                
-                let lastReadPage = self.currentDoc!.lastPage
-                self.pdfView.document = PDFDocument(url: url!)
-                if let page = self.pdfView.document?.page(at: Int(lastReadPage)) {
-                    self.pdfView.go(to: page)
-                }
-                
-                url!.stopAccessingSecurityScopedResource()
-            }
-        }
+        self.pdfView.loadLastRead(currentDoc: self.currentDoc)
     }
     
     @objc private func saveLastReadPage(notification: Notification) {
         if self.currentDoc != nil {
-            let pdfView = notification.object as! PDFView
-            let page = pdfView.currentDestination?.page?.pageRef?.pageNumber
-            self.currentDoc.lastPage = Int64(page!)
-            print(page!)
-//            try! self.context.save()
+            self.currentDoc.lastPage = self.pdfView.currentPageNumber()
         }
     }
     
