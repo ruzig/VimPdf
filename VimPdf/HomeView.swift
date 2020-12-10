@@ -7,6 +7,7 @@
 
 import Foundation
 import PDFKit
+import Cocoa
 
 class HomeView: PDFView {
     
@@ -15,6 +16,7 @@ class HomeView: PDFView {
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         self.autoScales = true
+        self.backgroundColor = NSColor.white
         
         registerForDraggedTypes([NSPasteboard.PasteboardType.pdf])
     }
