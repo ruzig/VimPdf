@@ -28,7 +28,7 @@ class ViewController: NSViewController {
         self.marks = ["": 0]
         
         self.currentDoc = DocModel(context: self.context).last()
-        loadLastRead()
+        self.pdfView.loadLastRead(currentDoc: self.currentDoc)
         loadMarks()
         NotificationCenter.default.addObserver(self, selector: #selector(self.saveLastReadPage),name: .PDFViewPageChanged, object: nil)
         let bundleURL = Bundle.main.bundleURL
@@ -62,29 +62,13 @@ class ViewController: NSViewController {
         }
     }
     
-    func down() {
-        for _ in 0..<30 {
-            self.pdfView.scrollLineUp(nil)
-        }
-    }
-    
-    func up() {
-        for _ in 0..<30 {
-            self.pdfView.scrollLineDown(nil)
-        }
-    }
-    
     func openFile() {
         self.panel.runModal() { (fileUrl) -> () in
             self.currentDoc = DocModel(context: self.context).create(fileUrl: fileUrl)
             FilePermission.saveBookmark(doc: self.currentDoc)
-            loadLastRead()
+            self.pdfView.loadLastRead(currentDoc: self.currentDoc)
             loadMarks()
         }
-    }
-    
-    func loadLastRead() {
-        self.pdfView.loadLastRead(currentDoc: self.currentDoc)
     }
     
     @objc private func saveLastReadPage(notification: Notification) {
@@ -117,9 +101,9 @@ class ViewController: NSViewController {
             case .loadMark:
                 loadMark(character: cmd.metadata!["character"] as! String)
             case .down:
-                down()
+                self.pdfView.down()
             case .up:
-                up()
+                self.pdfView.up()
             case .back:
                 self.pdfView.goBack(nil)
             case .forward:

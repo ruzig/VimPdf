@@ -52,4 +52,16 @@ class HomeView: PDFView {
     func currentPageNumber() -> Int64 {
         return Int64(self.currentDestination?.page?.pageRef?.pageNumber ?? 0)
     }
+    
+    func down() {
+        for _ in 0..<30 {
+            self.scrollLineUp(nil)
+        }
+    }
+    
+    func up() {
+        for _ in 0..<30 {
+            self.scrollLineDown(nil)
+        }
+    }
 }
