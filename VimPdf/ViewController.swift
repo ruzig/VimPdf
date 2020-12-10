@@ -31,11 +31,6 @@ class ViewController: NSViewController {
         self.pdfView.loadLastRead(currentDoc: self.currentDoc)
         loadMarks()
         NotificationCenter.default.addObserver(self, selector: #selector(self.saveLastReadPage),name: .PDFViewPageChanged, object: nil)
-        let bundleURL = Bundle.main.bundleURL
-        let parentVolumeURL = try! bundleURL.resourceValues(forKeys: [.volumeURLKey]).volume
-        print(parentVolumeURL)
-        print(bundleURL)
-                
     }
     
     func loadMarks() {
