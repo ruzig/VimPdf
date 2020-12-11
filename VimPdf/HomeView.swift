@@ -32,7 +32,7 @@ class HomeView: PDFView {
         }
     }
     
-    func loadLastRead(currentDoc: Doc?) {
+    func open(currentDoc: Doc?) {
         if (currentDoc != nil) {
             let url = FilePermission.loadBookmark(doc: currentDoc!)
             

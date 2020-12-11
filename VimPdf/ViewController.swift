@@ -28,7 +28,7 @@ class ViewController: NSViewController {
         self.marks = ["": 0]
 
         self.currentDoc = DocModel(context: self.context).last()
-        self.pdfView.loadLastRead(currentDoc: self.currentDoc)
+        self.pdfView.open(currentDoc: self.currentDoc)
         loadMarks()
         NotificationCenter.default.addObserver(self, selector: #selector(self.saveLastReadPage),name: .PDFViewPageChanged, object: nil)
     }
@@ -61,7 +61,7 @@ class ViewController: NSViewController {
         self.panel.runModal() { (fileUrl) -> () in
             self.currentDoc = DocModel(context: self.context).create(fileUrl: fileUrl)
             FilePermission.saveBookmark(doc: self.currentDoc)
-            self.pdfView.loadLastRead(currentDoc: self.currentDoc)
+            self.pdfView.open(currentDoc: self.currentDoc)
             loadMarks()
         }
     }

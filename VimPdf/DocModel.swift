@@ -32,6 +32,7 @@ class DocModel {
         try! self.context.save()
         return result
     }
+    
     func last() -> Doc? {
         let request = Doc.fetchRequest() as NSFetchRequest<Doc>
         request.sortDescriptors = [NSSortDescriptor.init(key: "openedAt", ascending: true)]
