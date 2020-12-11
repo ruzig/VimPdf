@@ -13,6 +13,7 @@ class HomeView: PDFView {
     
     var currentDocument: PDFDocument?
     var currentDoc: Doc!
+    let context = (NSApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
 
     
     required init?(coder: NSCoder) {
@@ -38,7 +39,9 @@ class HomeView: PDFView {
         
         
         if let urls = pasteBoard.readObjects(forClasses: [NSURL.self]) as? [URL]{
-            self.document = PDFDocument(url: urls.last!)
+            let doc = DocModel(context: self.context).create(fileUrl: urls.last!)
+            FilePermission.saveBookmark(doc: doc)
+            self.open(doc: doc)
         }
     }
     

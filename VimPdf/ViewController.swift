@@ -59,7 +59,6 @@ class ViewController: NSViewController {
         }
     }
     
-    
     override func keyDown(with event: NSEvent) {
         self.driver.add(item: event)
         self.driver.process() { (cmd) -> () in
