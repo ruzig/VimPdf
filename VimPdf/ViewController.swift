@@ -17,7 +17,6 @@ class ViewController: NSViewController {
     var panel: FileOpener!
     var driver: CQueue!
     var marks: [String: Int]!
-    var currentDoc: Doc!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,24 +24,18 @@ class ViewController: NSViewController {
         // Do any additional setup after loading the view.
         self.panel = FileOpener()
         self.driver = CQueue()
-        self.marks = ["": 0]
+        
 
-        self.currentDoc = DocModel(context: self.context).last()
-        self.pdfView.open(currentDoc: self.currentDoc)
-        loadMarks()
+        self.pdfView.open(doc: DocModel(context: self.context).last())
+        self.marks = self.pdfView.marks()
+        
         NotificationCenter.default.addObserver(self, selector: #selector(self.saveLastReadPage),name: .PDFViewPageChanged, object: nil)
     }
     
-    func loadMarks() {
-        if (self.currentDoc != nil && self.currentDoc.marks != nil) {
-            self.marks = try! JSONDecoder().decode([String: Int].self, from: self.currentDoc.marks!)
-        }
-    }
-    
     func saveMark(character: String) {
-        if (self.currentDoc != nil) {
+        if (self.pdfView.currentDoc != nil) {
             self.marks[character] = (self.pdfView.currentPage?.pageRef!.pageNumber)! - 1
-            self.currentDoc.marks = try! JSONEncoder().encode(self.marks)
+            self.pdfView.currentDoc.marks = try! JSONEncoder().encode(self.marks)
             try! self.context.save()
         }
     }
@@ -59,16 +52,16 @@ class ViewController: NSViewController {
     
     func openFile() {
         self.panel.runModal() { (fileUrl) -> () in
-            self.currentDoc = DocModel(context: self.context).create(fileUrl: fileUrl)
-            FilePermission.saveBookmark(doc: self.currentDoc)
-            self.pdfView.open(currentDoc: self.currentDoc)
-            loadMarks()
+            let doc = DocModel(context: self.context).create(fileUrl: fileUrl)
+            FilePermission.saveBookmark(doc: doc)
+            self.pdfView.open(doc: doc)
+            self.marks = self.pdfView.marks()
         }
     }
     
     @objc private func saveLastReadPage(notification: Notification) {
-        if self.currentDoc != nil {
-            self.currentDoc.lastPage = self.pdfView.currentPageNumber()
+        if self.pdfView.currentDoc != nil {
+            self.pdfView.currentDoc.lastPage = self.pdfView.currentPageNumber()
         }
     }
     

@@ -12,6 +12,8 @@ import Cocoa
 class HomeView: PDFView {
     
     var currentDocument: PDFDocument?
+    var currentDoc: Doc!
+
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
@@ -32,14 +34,16 @@ class HomeView: PDFView {
         }
     }
     
-    func open(currentDoc: Doc?) {
-        if (currentDoc != nil) {
-            let url = FilePermission.loadBookmark(doc: currentDoc!)
+    func open(doc: Doc?) {
+        if (doc != nil) {
+            self.currentDoc = doc
+
+            let url = FilePermission.loadBookmark(doc: self.currentDoc!)
             
             if url != nil {
                 _ = url!.startAccessingSecurityScopedResource()
                 
-                let lastReadPage = currentDoc!.lastPage
+                let lastReadPage = self.currentDoc!.lastPage
                 self.currentDocument = PDFDocument(url: url!)
                 self.document = self.currentDocument
                 if let page = self.document?.page(at: Int(lastReadPage)) {
@@ -49,6 +53,13 @@ class HomeView: PDFView {
                 url!.stopAccessingSecurityScopedResource()
             }
         }
+    }
+    
+    func marks() -> [String: Int] {
+        if (self.currentDoc != nil && self.currentDoc.marks != nil) {
+            return try! JSONDecoder().decode([String: Int].self, from: self.currentDoc.marks!)
+        }
+        return ["": 0]
     }
     
     func currentPageNumber() -> Int64 {
