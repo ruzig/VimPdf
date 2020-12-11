@@ -21,7 +21,15 @@ class HomeView: PDFView {
         self.backgroundColor = NSColor.white
         
         registerForDraggedTypes([NSPasteboard.PasteboardType.pdf])
+        NotificationCenter.default.addObserver(self, selector: #selector(self.saveLastReadPage),name: .PDFViewPageChanged, object: nil)
     }
+    
+    @objc private func saveLastReadPage(notification: Notification) {
+        if self.currentDoc != nil {
+            self.currentDoc.lastPage = self.currentPageNumber()
+        }
+    }
+    
     
     override func draggingEnded(_ sender: NSDraggingInfo) {
         let pasteBoard = sender.draggingPasteboard
@@ -35,7 +43,7 @@ class HomeView: PDFView {
     }
     
     func open(doc: Doc?) {
-        if (doc != nil) {
+        if ((doc != nil) && (self.currentDoc?.id != doc?.id)) {
             self.currentDoc = doc
 
             let url = FilePermission.loadBookmark(doc: self.currentDoc!)

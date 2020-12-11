@@ -29,7 +29,7 @@ class ViewController: NSViewController {
         self.pdfView.open(doc: DocModel(context: self.context).last())
         self.marks = self.pdfView.marks()
         
-        NotificationCenter.default.addObserver(self, selector: #selector(self.saveLastReadPage),name: .PDFViewPageChanged, object: nil)
+        
     }
     
     func saveMark(character: String) {
@@ -59,11 +59,6 @@ class ViewController: NSViewController {
         }
     }
     
-    @objc private func saveLastReadPage(notification: Notification) {
-        if self.pdfView.currentDoc != nil {
-            self.pdfView.currentDoc.lastPage = self.pdfView.currentPageNumber()
-        }
-    }
     
     override func keyDown(with event: NSEvent) {
         self.driver.add(item: event)
