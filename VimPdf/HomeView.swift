@@ -61,6 +61,7 @@ class HomeView: PDFView {
                 let lastReadPage = self.currentDoc!.lastPage
                 self.currentDocument = PDFDocument(url: url!)
                 self.document = self.currentDocument
+                self.currentDoc.openedAt = Date()
                 if let page = self.document?.page(at: Int(lastReadPage)) {
                     self.go(to: page)
                 }

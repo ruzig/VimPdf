@@ -36,11 +36,30 @@ class CQueue {
         if self.queue.last?.keyCode == Keycode.returnKey ||
             self.queue.last?.keyCode == Keycode.enter {
             self.queue.removeLast()
-            let pageNum = Int(toMessage())
-            self.queue.removeAll()
-            if (pageNum != nil) {
-                callback(Command(message: toMessage(), type: .goto, metadata: ["pageNum": pageNum!]))
+            if (self.queue.first?.characters == "l") {
+                processOpenRecentDoc(callback: callback)
+            } else {
+                processGoPage(callback: callback)
             }
+            
+        }
+    }
+    
+    func processOpenRecentDoc(callback: (Command) -> ()) {
+        self.queue.removeFirst()
+        let number = Int(toMessage())
+        self.queue.removeAll()
+        if (number != nil) {
+            callback(Command(message: toMessage(), type: .openRecentDoc, metadata: ["order": number!]))
+        }
+
+    }
+    
+    func processGoPage(callback: (Command) -> ()) {
+        let pageNum = Int(toMessage())
+        self.queue.removeAll()
+        if (pageNum != nil) {
+            callback(Command(message: toMessage(), type: .goto, metadata: ["pageNum": pageNum!]))
         }
     }
     
@@ -87,6 +106,8 @@ class CQueue {
                     o: Open File
                     d: Quarter page down
                     u: Quarter page up
+                    Space: Page down
+                    Shift + Space: Page Up
                     gg: Go to First Page
                     G: Go to Last Page
                     [: Go back in history
@@ -128,7 +149,7 @@ class CQueue {
     
     func proccessList(callback: (Command) -> ()) {
         if self.queue.first?.characters == "l" {
-            callback(Command(message: ":" + toMessage(), type: CommandType.list, metadata: nil))
+            callback(Command(message: ":" + toMessage() + " - Input number and Enter to open." , type: CommandType.list, metadata: nil))
         }
     }
     

@@ -73,6 +73,17 @@ class ViewController: NSViewController {
             case .list:
                 commandView.stringValue = "Recent documents:" + "\n\(listRecentDocuments())" +
                     "\n\(cmd.message)"
+            case .openRecentDoc:
+                let docs = DocModel(context: self.context).top50()
+                let count = docs.count
+                let num = count - (cmd.metadata!["order"]! as! Int)
+
+
+                if (num >= 0 && num < count) {
+                    let doc = docs[num]
+                    self.pdfView.open(doc: doc)
+                }
+
             }
             try! self.context.save()
         }

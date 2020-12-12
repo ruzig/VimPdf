@@ -14,7 +14,7 @@ enum CommandType {
          down, up,
          back, forward,
          help, toggle,
-         list
+         list, openRecentDoc
          
 }
 
