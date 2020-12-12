@@ -94,6 +94,7 @@ class CQueue {
                     m: Mark the current page to a character, e.g: ma
                     ': Go to a mark, e.g: 'a
                     t: Toggle status bar
+                    l: List recent documents
                     ⌘ +: Zoom in
                     ⌘ -: Zoom in
                     esc: Reset command
