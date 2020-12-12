@@ -31,7 +31,6 @@ class HomeView: PDFView {
         }
     }
     
-    
     override func draggingEnded(_ sender: NSDraggingInfo) {
         let pasteBoard = sender.draggingPasteboard
 
