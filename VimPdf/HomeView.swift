@@ -14,6 +14,7 @@ class HomeView: PDFView {
     var currentDocument: PDFDocument?
     var currentDoc: Doc!
     let context = (NSApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    var marks: [String: Int]!
 
     
     required init?(coder: NSCoder) {
@@ -59,17 +60,36 @@ class HomeView: PDFView {
                 if let page = self.document?.page(at: Int(lastReadPage)) {
                     self.go(to: page)
                 }
-                
+                loadMarks()
                 url!.stopAccessingSecurityScopedResource()
             }
         }
     }
     
-    func marks() -> [String: Int] {
+    func loadMarks() {
         if (self.currentDoc != nil && self.currentDoc.marks != nil) {
-            return try! JSONDecoder().decode([String: Int].self, from: self.currentDoc.marks!)
+            self.marks = try! JSONDecoder().decode([String: Int].self, from: self.currentDoc.marks!)
+        } else {
+            self.marks = ["": 0]
         }
-        return ["": 0]
+    }
+    
+    func saveMark(character: String) {
+        if (self.currentDoc != nil) {
+            self.marks[character] = (self.currentPage?.pageRef!.pageNumber)! - 1
+            self.currentDoc.marks = try! JSONEncoder().encode(self.marks)
+            try! self.context.save()
+        }
+    }
+    
+    func loadMark(character: String) {
+        let pageNumber = self.marks[character]
+        if pageNumber != nil {
+            let page = self.document?.page(at: pageNumber!)
+            if (page != nil) {
+                self.go(to: page!)
+            }
+        }
     }
     
     func currentPageNumber() -> Int64 {

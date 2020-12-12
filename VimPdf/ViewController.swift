@@ -16,7 +16,6 @@ class ViewController: NSViewController {
     
     var panel: FileOpener!
     var driver: CQueue!
-    var marks: [String: Int]!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,27 +26,6 @@ class ViewController: NSViewController {
         
 
         self.pdfView.open(doc: DocModel(context: self.context).last())
-        self.marks = self.pdfView.marks()
-        
-        
-    }
-    
-    func saveMark(character: String) {
-        if (self.pdfView.currentDoc != nil) {
-            self.marks[character] = (self.pdfView.currentPage?.pageRef!.pageNumber)! - 1
-            self.pdfView.currentDoc.marks = try! JSONEncoder().encode(self.marks)
-            try! self.context.save()
-        }
-    }
-    
-    func loadMark(character: String) {
-        let pageNumber = self.marks[character]
-        if pageNumber != nil {
-            let page = self.pdfView.document?.page(at: pageNumber!)
-            if (page != nil) {
-                self.pdfView.go(to: page!)
-            }
-        }
     }
     
     func openFile() {
@@ -55,7 +33,6 @@ class ViewController: NSViewController {
             let doc = DocModel(context: self.context).create(fileUrl: fileUrl)
             FilePermission.saveBookmark(doc: doc)
             self.pdfView.open(doc: doc)
-            self.marks = self.pdfView.marks()
         }
     }
     
@@ -82,9 +59,9 @@ class ViewController: NSViewController {
                     self.pdfView.go(to: page!)
                 }
             case .mark:
-                saveMark(character: cmd.metadata!["character"] as! String)
+                self.pdfView.saveMark(character: cmd.metadata!["character"] as! String)
             case .loadMark:
-                loadMark(character: cmd.metadata!["character"] as! String)
+                self.pdfView.loadMark(character: cmd.metadata!["character"] as! String)
             case .down:
                 self.pdfView.down()
             case .up:
