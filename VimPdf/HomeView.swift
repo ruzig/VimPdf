@@ -39,10 +39,14 @@ class HomeView: PDFView {
         
         
         if let urls = pasteBoard.readObjects(forClasses: [NSURL.self]) as? [URL]{
-            let doc = DocModel(context: self.context).create(fileUrl: urls.last!)
-            FilePermission.saveBookmark(doc: doc)
-            self.open(doc: doc)
+            self.openFile(url: urls.last!)
         }
+    }
+    
+    func openFile(url: URL) {
+        let doc = DocModel(context: self.context).create(fileUrl: url)
+        FilePermission.saveBookmark(doc: doc)
+        self.open(doc: doc)
     }
     
     func open(doc: Doc?) {

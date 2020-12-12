@@ -30,9 +30,7 @@ class ViewController: NSViewController {
     
     func openFile() {
         self.panel.runModal() { (fileUrl) -> () in
-            let doc = DocModel(context: self.context).create(fileUrl: fileUrl)
-            FilePermission.saveBookmark(doc: doc)
-            self.pdfView.open(doc: doc)
+            self.pdfView.openFile(url: fileUrl)
         }
     }
     
