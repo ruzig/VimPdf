@@ -125,6 +125,12 @@ class CQueue {
         }
     }
     
+    func proccessList(callback: (Command) -> ()) {
+        if self.queue.first?.characters == "l" {
+            callback(Command(message: ":" + toMessage(), type: CommandType.list, metadata: nil))
+        }
+    }
+    
     func process(callback: (Command) -> ()) {
         if self.queue.count > 0 {
             processEscape(callback: callback)
@@ -132,6 +138,7 @@ class CQueue {
             processMark(callback: callback)
             processLoadMark(callback: callback)
             processTextCommand(callback: callback)
+            proccessList(callback: callback)
         }
     }
 }

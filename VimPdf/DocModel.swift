@@ -39,4 +39,12 @@ class DocModel {
         let items = try! context.fetch(request)
         return items.last
     }
+    
+    func top50() -> [Doc] {
+        let request = Doc.fetchRequest() as NSFetchRequest<Doc>
+        request.sortDescriptors = [NSSortDescriptor.init(key: "openedAt", ascending: true)]
+        request.fetchLimit = 50
+        let items = try! context.fetch(request)
+        return items
+    }
 }

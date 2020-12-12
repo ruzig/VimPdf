@@ -70,9 +70,25 @@ class ViewController: NSViewController {
                 self.pdfView.goForward(nil)
             case .help:
                 break
+            case .list:
+                commandView.stringValue = "Recent documents:" + "\n\(listRecentDocuments())" +
+                    "\n\(cmd.message)"
             }
             try! self.context.save()
         }
+    }
+    
+    func listRecentDocuments() -> String {
+        let docs = DocModel(context: self.context).top50()
+        let names = docs.compactMap { doc in
+            return (doc.fileUrl?.lastPathComponent ?? nil)
+        }
+        let count = names.count
+        let result = names.enumerated().map { (index, name) in
+            
+            return "\(count - index). \(name)"
+        }
+        return result.joined(separator: "\n")
     }
     
     override var representedObject: Any? {
