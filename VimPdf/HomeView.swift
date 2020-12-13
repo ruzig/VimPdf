@@ -69,6 +69,8 @@ class HomeView: PDFView {
                         self.go(to: page)
                     }
                     loadMarks()
+                } else {
+                    self.context.delete(doc!)
                 }
                 
                 url!.stopAccessingSecurityScopedResource()
