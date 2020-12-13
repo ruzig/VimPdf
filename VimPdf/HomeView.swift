@@ -11,7 +11,6 @@ import Cocoa
 
 class HomeView: PDFView {
     
-    var currentDocument: PDFDocument?
     var currentDoc: Doc!
     let context = (NSApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     var marks: [String: Int]!
@@ -60,11 +59,10 @@ class HomeView: PDFView {
                 if aDocument != nil {
                     self.currentDoc = doc
                     self.currentDoc.openedAt = Date()
-                    self.currentDocument = aDocument
                     
                     let lastReadPage = self.currentDoc!.lastPage
+                    self.document = aDocument
 
-                    self.document = self.currentDocument
                     if let page = self.document?.page(at: Int(lastReadPage)) {
                         self.go(to: page)
                     }
