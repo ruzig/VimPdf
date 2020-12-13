@@ -51,21 +51,26 @@ class HomeView: PDFView {
     
     func open(doc: Doc?) {
         if ((doc != nil) && (self.currentDoc?.id != doc?.id)) {
-            self.currentDoc = doc
 
-            let url = FilePermission.loadBookmark(doc: self.currentDoc!)
+            let url = FilePermission.loadBookmark(doc: doc!)
             
             if url != nil {
                 _ = url!.startAccessingSecurityScopedResource()
-                
-                let lastReadPage = self.currentDoc!.lastPage
-                self.currentDocument = PDFDocument(url: url!)
-                self.document = self.currentDocument
-                self.currentDoc.openedAt = Date()
-                if let page = self.document?.page(at: Int(lastReadPage)) {
-                    self.go(to: page)
+                let aDocument = PDFDocument(url: url!)
+                if aDocument != nil {
+                    self.currentDoc = doc
+                    self.currentDoc.openedAt = Date()
+                    self.currentDocument = aDocument
+                    
+                    let lastReadPage = self.currentDoc!.lastPage
+
+                    self.document = self.currentDocument
+                    if let page = self.document?.page(at: Int(lastReadPage)) {
+                        self.go(to: page)
+                    }
+                    loadMarks()
                 }
-                loadMarks()
+                
                 url!.stopAccessingSecurityScopedResource()
             }
         }
