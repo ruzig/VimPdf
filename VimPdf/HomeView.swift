@@ -69,6 +69,20 @@ class HomeView: PDFView {
                     loadMarks()
                 } else {
                     self.context.delete(doc!)
+                    let alert = NSAlert()
+                    alert.messageText = "Can not open this file, please press key o to open!"
+                    alert.addButton(withTitle: "Use o instead")
+                    var w: NSWindow?
+                    if let window = self.window{
+                        w = window
+                    }
+                    else if let window = NSApplication.shared.windows.first{
+                        w = window
+                    }
+                    if let window = w {
+                        alert.beginSheetModal(for: window)
+                        
+                    }
                 }
                 
                 url!.stopAccessingSecurityScopedResource()
