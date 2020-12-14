@@ -70,7 +70,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="850" height="16"/>
                                 <textFieldCell key="cell" lineBreakMode="clipping" alignment="left" title=":Press ? to show help." drawsBackground="YES" id="YVS-Sb-0ab">
                                     <font key="font" usesAppearanceFont="YES"/>
-                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </textFieldCell>
                             </textField>
