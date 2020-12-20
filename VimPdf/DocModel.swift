@@ -7,6 +7,7 @@
 
 import Foundation
 import CoreData
+import PDFKit
 
 class DocModel {
     var context: NSManagedObjectContext
@@ -46,5 +47,41 @@ class DocModel {
         request.fetchLimit = 50
         let items = try! context.fetch(request)
         return items
+    }
+    
+    func cleanUp() {
+        removeInvalid()
+        removeExpired()
+    }
+    
+    func removeInvalid() {
+        let request = Doc.fetchRequest() as NSFetchRequest<Doc>
+        request.sortDescriptors = [NSSortDescriptor.init(key: "openedAt", ascending: true)]
+        let items = try! context.fetch(request)
+        items.forEach { doc in
+            let url = FilePermission.loadBookmark(doc: doc)
+            
+            if url != nil {
+                _ = url!.startAccessingSecurityScopedResource()
+                let valid = PDFDocument(url: url!)
+                if valid == nil {
+                    context.delete(doc)
+                }
+                url!.stopAccessingSecurityScopedResource()
+            }
+
+        }
+    }
+    
+    func removeExpired() {
+        let request = Doc.fetchRequest() as NSFetchRequest<Doc>
+        request.sortDescriptors = [NSSortDescriptor.init(key: "openedAt", ascending: true)]
+        let items = try! context.fetch(request)
+        if items.count > 50 {
+            let expires = items.suffix(from: 50)
+            expires.forEach { (doc) in
+                context.delete(doc)
+            }
+        }
     }
 }

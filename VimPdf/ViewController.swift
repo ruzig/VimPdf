@@ -71,6 +71,7 @@ class ViewController: NSViewController {
             case .help:
                 break
             case .list:
+                DocModel(context: self.context).cleanUp()
                 commandView.stringValue = "Recent documents:" + "\n\(listRecentDocuments())" +
                     "\n\(cmd.message)"
             case .openRecentDoc:
