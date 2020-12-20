@@ -24,6 +24,7 @@ class ViewController: NSViewController {
         self.panel = FileOpener()
         self.driver = CQueue()
         
+        DocModel(context: self.context).cleanUp()
 
         self.pdfView.open(doc: DocModel(context: self.context).last())
     }
@@ -71,7 +72,6 @@ class ViewController: NSViewController {
             case .help:
                 break
             case .list:
-                DocModel(context: self.context).cleanUp()
                 commandView.stringValue = "Recent documents:" + "\n\(listRecentDocuments())" +
                     "\n\(cmd.message)"
             case .openRecentDoc:
