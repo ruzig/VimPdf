@@ -20,6 +20,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     func applicationWillTerminate(_ aNotification: Notification) {
         // Insert code here to tear down your application
     }
+    
+    func application(_ sender: NSApplication, openFile filename: String) -> Bool {
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "OpenFileByOpenWith"), object: nil, userInfo: ["url": filename])
+        return true
+    }
 
     // MARK: - Core Data stack
 

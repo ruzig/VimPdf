@@ -23,6 +23,15 @@ class HomeView: PDFView {
         
         registerForDraggedTypes([NSPasteboard.PasteboardType.pdf])
         NotificationCenter.default.addObserver(self, selector: #selector(self.saveLastReadPage),name: .PDFViewPageChanged, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.openWith),name: NSNotification.Name(rawValue: "OpenFileByOpenWith"), object: nil)
+    }
+    
+    @objc private func openWith(notification: Notification) {
+        if let data = notification.userInfo as? [String: String] {
+            if data["url"] != nil {
+                self.openFile(url: URL(fileURLWithPath: data["url"]!))
+            }
+        }
     }
     
     @objc private func saveLastReadPage(notification: Notification) {
